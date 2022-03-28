@@ -1,18 +1,13 @@
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:house_interior/GlobalVariable.dart';
-import 'package:house_interior/RegistrationActivity.dart';
-import 'package:motion_toast/motion_toast.dart';
+// import 'package:house_interior/FadeAnimation.dart';
 
-class LoginActivity extends StatefulWidget{
+class RegistrationActivity extends StatefulWidget{
   @override
-  State<LoginActivity> createState() => _LoginActivity();
-}
-class _LoginActivity extends State<LoginActivity>{
-  final mail_id = TextEditingController();
-  final password = TextEditingController();
+  State<StatefulWidget> createState() => _RegistrationActivity();
 
+}
+class _RegistrationActivity extends State<RegistrationActivity>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,7 +67,7 @@ class _LoginActivity extends State<LoginActivity>{
                         child: Container(
                           margin: EdgeInsets.only(top: 50),
                           child: Center(
-                            child: Text("Login", style: TextStyle(color: Colors.white, fontSize: 40, fontWeight: FontWeight.bold),),
+                            child: Text("Registration", style: TextStyle(color: Colors.white, fontSize: 40, fontWeight: FontWeight.bold),),
                           ),
                         ),
                       )
@@ -98,6 +93,19 @@ class _LoginActivity extends State<LoginActivity>{
                         ),
                         child: Column(
                           children: <Widget>[
+                            Container(
+                              padding: EdgeInsets.all(8.0),
+                              decoration: const BoxDecoration(
+                                  border: Border(bottom: BorderSide(color: Colors.grey))
+                              ),
+                              child: TextField(
+                                decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    hintText: "Name",
+                                    hintStyle: TextStyle(color: Colors.grey[400])
+                                ),
+                              ),
+                            ),
                             Container(
                               padding: EdgeInsets.all(8.0),
                               decoration: const BoxDecoration(
@@ -137,17 +145,10 @@ class _LoginActivity extends State<LoginActivity>{
                             )
                         ),
                         child: Center(
-                          child: Text("Login", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
+                          child: Text("Register", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
                         ),
                       ),
                       SizedBox(height: 70,),
-                      GestureDetector(
-                        child: Text('Register', style: TextStyle(color: Color.fromRGBO(143, 148, 251, 1))),
-                        onTap: (){
-                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => RegistrationActivity()));
-                        },
-                      ),
-                      SizedBox(height: 30,),
                       Text("Forgot Password?", style: TextStyle(color: Color.fromRGBO(143, 148, 251, 1)),),
                     ],
                   ),
@@ -157,9 +158,6 @@ class _LoginActivity extends State<LoginActivity>{
           ),
         )
     );
-  }
-  void showToast(String text){
-    MotionToast.info(description: Text(text), title: const Text('Info',),).show(context);
   }
 
 }
