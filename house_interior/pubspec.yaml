@@ -42,6 +42,8 @@ dependencies:
   #link : https://pub.dev/packages/animated_text_kit
 
   simple_animations: ^1.3.3
+  sqflite: ^2.0.2
+  path_provider: ^2.0.9
 
 dev_dependencies:
   flutter_test:

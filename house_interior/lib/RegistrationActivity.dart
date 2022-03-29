@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:house_interior/Database/UserDB.dart';
 // import 'package:house_interior/FadeAnimation.dart';
 
 class RegistrationActivity extends StatefulWidget{
@@ -8,6 +9,10 @@ class RegistrationActivity extends StatefulWidget{
 
 }
 class _RegistrationActivity extends State<RegistrationActivity>{
+  final mail_id = TextEditingController();
+  final pass = TextEditingController();
+  final name = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -99,6 +104,7 @@ class _RegistrationActivity extends State<RegistrationActivity>{
                                   border: Border(bottom: BorderSide(color: Colors.grey))
                               ),
                               child: TextField(
+                                controller: name,
                                 decoration: InputDecoration(
                                     border: InputBorder.none,
                                     hintText: "Name",
@@ -112,6 +118,7 @@ class _RegistrationActivity extends State<RegistrationActivity>{
                                   border: Border(bottom: BorderSide(color: Colors.grey))
                               ),
                               child: TextField(
+                                controller: mail_id,
                                 decoration: InputDecoration(
                                     border: InputBorder.none,
                                     hintText: "Email or Phone number",
@@ -122,6 +129,7 @@ class _RegistrationActivity extends State<RegistrationActivity>{
                             Container(
                               padding: EdgeInsets.all(8.0),
                               child: TextField(
+                                controller: pass,
                                 decoration: InputDecoration(
                                     border: InputBorder.none,
                                     hintText: "Password",
@@ -145,7 +153,14 @@ class _RegistrationActivity extends State<RegistrationActivity>{
                             )
                         ),
                         child: Center(
-                          child: Text("Register", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
+                          child: GestureDetector(
+                            onTap: (){
+                              UserDB userDb = new UserDB(name.text, mail_id.text, pass.text);
+                              userDb.init();
+                              userDb.insertDB();
+                            },
+                            child: Text("Register", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
+                          ),
                         ),
                       ),
                       SizedBox(height: 70,),

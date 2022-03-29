@@ -1,6 +1,8 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:house_interior/Database/AdminDB.dart';
+import 'package:house_interior/Database/UserDB.dart';
 import 'package:house_interior/GlobalVariable.dart';
 import 'package:house_interior/RegistrationActivity.dart';
 import 'package:motion_toast/motion_toast.dart';
@@ -12,6 +14,13 @@ class LoginActivity extends StatefulWidget{
 class _LoginActivity extends State<LoginActivity>{
   final mail_id = TextEditingController();
   final password = TextEditingController();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    AdminDB().init();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -104,6 +113,7 @@ class _LoginActivity extends State<LoginActivity>{
                                   border: Border(bottom: BorderSide(color: Colors.grey))
                               ),
                               child: TextField(
+                                controller: mail_id,
                                 decoration: InputDecoration(
                                     border: InputBorder.none,
                                     hintText: "Email or Phone number",
@@ -114,6 +124,7 @@ class _LoginActivity extends State<LoginActivity>{
                             Container(
                               padding: EdgeInsets.all(8.0),
                               child: TextField(
+                                controller: password,
                                 decoration: InputDecoration(
                                     border: InputBorder.none,
                                     hintText: "Password",
@@ -137,7 +148,23 @@ class _LoginActivity extends State<LoginActivity>{
                             )
                         ),
                         child: Center(
-                          child: Text("Login", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
+                          child: GestureDetector(
+                            onTap: (){
+                              print('clicked');
+                              AdminDB adminDB = new AdminDB();
+                              UserDB userDB = new UserDB('', '', '');
+                              userDB.init();
+                              adminDB.init();
+                              if(adminDB.check(mail_id.text, password.text)){
+
+                              }else if(userDB.check(mail_id.text, password.text)){
+
+                              }else{
+                                showWarning('Authentication Failed');
+                              }
+                            },
+                            child: Text("Login", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
+                          ),
                         ),
                       ),
                       SizedBox(height: 70,),
@@ -158,8 +185,11 @@ class _LoginActivity extends State<LoginActivity>{
         )
     );
   }
-  void showToast(String text){
-    MotionToast.info(description: Text(text), title: const Text('Info',),).show(context);
-  }
 
+  void showToast(String text){
+    MotionToast.success(description: Text(text), title: const Text('Info',),).show(context);
+  }
+  void showWarning(String text){
+    MotionToast.warning(description: Text(text), title: const Text('Info',),).show(context);
+  }
 }
