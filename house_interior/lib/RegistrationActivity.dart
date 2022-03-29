@@ -156,7 +156,7 @@ class _RegistrationActivity extends State<RegistrationActivity>{
                           child: GestureDetector(
                             onTap: (){
                               UserDB userDb = new UserDB(name.text, mail_id.text, pass.text);
-                              userDb.init();
+                              UserDB.init();
                               userDb.insertDB();
                             },
                             child: Text("Register", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:house_interior/Database/AdminDB.dart';
 import 'package:house_interior/Database/UserDB.dart';
 import 'package:house_interior/GlobalVariable.dart';
+import 'package:house_interior/HomeActivity.dart';
 import 'package:house_interior/RegistrationActivity.dart';
 import 'package:motion_toast/motion_toast.dart';
 
@@ -19,7 +20,7 @@ class _LoginActivity extends State<LoginActivity>{
   void initState() {
     // TODO: implement initState
     super.initState();
-    AdminDB().init();
+    AdminDB.init();
   }
 
   @override
@@ -149,19 +150,19 @@ class _LoginActivity extends State<LoginActivity>{
                         ),
                         child: Center(
                           child: GestureDetector(
-                            onTap: (){
+                            onTap: () async {
                               print('clicked');
-                              AdminDB adminDB = new AdminDB();
-                              UserDB userDB = new UserDB('', '', '');
-                              userDB.init();
-                              adminDB.init();
+                              // AdminDB adminDB = new AdminDB();
+                              // UserDB userDB = new UserDB('', '', '');
+                              UserDB.init();
+                              AdminDB.init();
                               // bool aCheck =  as bool;
-                              bool uCheck = userDB.check(mail_id.text, password.text) as bool;
-
-                              if(true){
+                              // bool uCheck = userDB.check(mail_id.text, password.text) as bool;
+                              if(AdminDB.Check(mail_id.text, password.text, 1)){
                                 showToast('success');
-                              }else if(uCheck){
-                                showToast('success');
+                                Navigator.of(context).push(MaterialPageRoute(builder: (context)=>HomeActivity("admin")));
+                              // }else if(await UserDB.check(mail_id.text, password.text)){
+                              //   showToast('success');
                               }else{
                                 showWarning('Authentication Failed');
                               }
