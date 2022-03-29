@@ -29,7 +29,7 @@ class AdminDB {
     List<Map<String, dynamic>> map = await database.rawQuery('SELECT *FROM admin');
     print(map);
   }
-  check(String mail, String pass) async{
+  Future<bool> check(String mail, String pass) async{
     List<Map<String, dynamic>> checkMap = await database.query('admin', where:"mail=?", whereArgs:[mail], limit:1);
     if(checkMap[0]!=null && checkMap[0]['password']==pass){
       return true;

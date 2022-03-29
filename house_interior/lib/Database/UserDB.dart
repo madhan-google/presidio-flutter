@@ -44,6 +44,7 @@ class UserDB{
   var database;
   void init() async{
     database = await openDatabase('users',
+      version: 1,
       onCreate: (db, version) {
         return db.execute('CREATE TABLE users(name TEXT, mailid TEXT, pass TEXT)');
     });
@@ -53,7 +54,7 @@ class UserDB{
   void insertDB(){
     database.insert('users', toJson(this));
   }
-  check(String mail, String pass) async{
+  Future<bool> check(String mail, String pass) async{
     List<Map<String, dynamic>> checkMap = await database.query('users', where:"mailid=?", whereArgs:[mail], limit:1);
     if(checkMap[0]!=null&&checkMap[0]['pass']==pass) return true;
     else return false;

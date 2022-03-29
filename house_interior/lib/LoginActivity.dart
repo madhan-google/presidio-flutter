@@ -155,10 +155,13 @@ class _LoginActivity extends State<LoginActivity>{
                               UserDB userDB = new UserDB('', '', '');
                               userDB.init();
                               adminDB.init();
-                              if(adminDB.check(mail_id.text, password.text)){
+                              // bool aCheck =  as bool;
+                              bool uCheck = userDB.check(mail_id.text, password.text) as bool;
 
-                              }else if(userDB.check(mail_id.text, password.text)){
-
+                              if(true){
+                                showToast('success');
+                              }else if(uCheck){
+                                showToast('success');
                               }else{
                                 showWarning('Authentication Failed');
                               }
